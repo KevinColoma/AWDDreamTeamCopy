@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Factura - Bazar</title>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <h2>Formulario de Factura</h2>
+  <form id="invoiceForm" method="POST" action="guardar_cliente.php">
+    <label>Cédula (TaxID):</label>
+    <input type="text" id="taxid" name="taxid" onblur="getClientData()" required>
+
+    <label>Nombre completo:</label>
+    <input type="text" id="fullname" name="fullname" required>
+
+    <label>Dirección:</label>
+    <input type="text" id="address" name="address">
+
+    <label>Referencias:</label>
+    <input type="text" id="referenceNote" name="referenceNote">
+
+    <label>Teléfono:</label>
+    <input type="text" id="phone" name="phone">
+
+    <label>Email:</label>
+    <input type="email" id="email" name="email">
+
+    <label>Tipo de factura:</label>
+    <select id="facturaTipo" onchange="toggleCliente()">
+      <option value="cliente">Cliente</option>
+      <option value="consumidor_final">Consumidor Final</option>
+    </select>
+
+    <br><br>
+    <button type="submit">Guardar Cliente / Generar Factura</button>
+  </form>
+</body>
+</html>
+
+
+
+<form id="invoiceForm" method="POST" action="generar_factura.php">
+  <!-- campos como taxid, fullname, etc. -->
+  <input type="hidden" name="facturaTipo" id="facturaTipoInput">
+  <button type="submit">Generar Factura PDF</button>
+</form>
