@@ -41,6 +41,19 @@
 
 
 
+   function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+  }
+
+  // Al cargar, aplicar el tema guardado
+  document.addEventListener("DOMContentLoaded", function() {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.body.classList.add("dark-mode");
+    }
+  });
+
 /*function getClientData() {
     const taxid = document.getElementById("taxid").value;
     if (taxid === "") return;
