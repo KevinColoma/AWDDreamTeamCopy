@@ -1,6 +1,4 @@
-
-
-  function getClientData() {
+function getClientData() {
     const taxid = document.getElementById("taxid").value;
     if (taxid === "") return;
 
@@ -43,6 +41,10 @@
 
    function toggleTheme() {
     document.body.classList.toggle("dark-mode");
+    // Cambia también el tema de los formularios y otros elementos
+    document.querySelectorAll('form, .theme-toggle, h2').forEach(el => {
+        el.classList.toggle("dark-mode");
+    });
     localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
   }
 
@@ -51,6 +53,9 @@
     const theme = localStorage.getItem("theme");
     if (theme === "dark") {
       document.body.classList.add("dark-mode");
+      document.querySelectorAll('form, .theme-toggle, h2').forEach(el => {
+        el.classList.add("dark-mode");
+      });
     }
   });
 
