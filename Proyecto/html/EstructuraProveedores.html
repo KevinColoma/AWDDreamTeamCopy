@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Proveedores - Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f1f3f5 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 32px;
+            font-family: 'Aptos', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1280px;
+            padding: 48px;
+            margin-top: 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.8px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-top: 8px;
+        }
+
+        .add-button {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s ease;
+        }
+
+        .add-button:hover {
+            background: linear-gradient(135deg, #2d3748 0%, #64748b 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .search-bar {
+            flex: 1;
+            position: relative;
+            min-width: 300px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 48px 14px 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #475569;
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .table-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            background: #ffffff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th, td {
+            padding: 20px 24px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        tr {
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+            transform: translateX(8px);
+        }
+
+        td {
+            border-bottom: 1px solid #e2e8f0;
+            color: #1e293b;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .empty-state i {
+            font-size: 2rem;
+            color: #94a3b8;
+            margin-bottom: 16px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .actions button::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .actions button:hover::after {
+            opacity: 1;
+        }
+
+        .actions .edit:hover {
+            color: #3b82f6;
+            transform: scale(1.2);
+        }
+
+        .actions .delete:hover {
+            color: #ef4444;
+            transform: scale(1.2);
+        }
+
+        .actions .history:hover {
+            color: #10b981;
+            transform: scale(1.2);
+        }
+
+        .actions .top-products:hover {
+            color: #f59e0b;
+            transform: scale(1.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 32px;
+        }
+
+        .modal-content .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .modal-content input,
+        .modal-content select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .modal-content input:focus,
+        .modal-content select:focus {
+            outline: none;
+            border-color: #475569;
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 32px;
+        }
+
+        .modal-content button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content .save {
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            color: #ffffff;
+        }
+
+        .modal-content .save:hover {
+            background: linear-gradient(135deg, #2d3748 0%, #64748b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-content .cancel {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .modal-content .cancel:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+        }
+
+        .info-modal-content {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .info-modal-content h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 24px;
+        }
+
+        .info-modal-content ul {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .info-modal-content li {
+            padding: 10px 0;
+            color: #1e293b;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 32px;
+                margin-top: 24px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            th, td {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .add-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .modal-content,
+            .info-modal-content {
+                width: 90%;
+                padding: 32px;
+            }
+
+            .modal-content .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .search-bar input {
+                padding: 12px 40px 12px 16px;
+            }
+
+            th, td {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Proveedores</h1>
+                <p>Panel de administracion y Gestión</p>
+            </div>
+            <button class="add-button" onclick="openModal('add')">
+                <i class="fas fa-plus"></i> Nuevo Proveedor
+            </button>
+        </div>
+        <div class="controls">
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Buscar por cédula, empresa, contacto...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table id="suppliersTable">
+                <thead>
+                    <tr>
+                        <th>Cédula/RUC</th>
+                        <th>Empresa</th>
+                        <th>Contacto</th>
+                        <th>Teléfono</th>
+                        <th>Cuenta Bancaria</th>
+                        <th>Nombre del Banco</th>
+                        <th>Catálogo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="suppliersBody">
+                    <tr>
+                        <td colspan="8" class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <p>No hay proveedores registrados. Haz clic en "Nuevo Proveedor" para añadir uno.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Nuevo Proveedor</h2>
+            <input type="hidden" id="supplierId">
+            <div class="form-grid">
+                <input type="text" id="supplierCedulaRuc" placeholder="Cédula o RUC">
+                <input type="text" id="supplierEmpresa" placeholder="Nombre de la empresa">
+                <input type="text" id="supplierNombresVendedor" placeholder="Nombre del vendedor">
+                <input type="text" id="supplierTelefono" placeholder="Teléfono (ej. 0987654321)">
+                <input type="text" id="supplierCuentaBancaria" placeholder="Cuenta bancaria">
+                <input type="text" id="supplierNombreBanco" placeholder="Nombre del banco">
+                <input type="text" id="supplierCatalogo" placeholder="Catálogo">
+            </div>
+            <div class="modal-actions">
+                <button class="save" onclick="crearProveedor()">Guardar</button>
+                <button class="cancel" onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="infoModal">
+        <div class="info-modal-content">
+            <h3 id="infoModalTitle"></h3>
+            <ul id="infoModalList"></ul>
+            <div class="modal-actions">
+                <button class="cancel" onclick="closeInfoModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class Proveedor {
+            constructor(cedulaRuc, empresa, telefono, cuentaBancaria, nombresVendedor, nombreBanco, catalogo) {
+                this.cedulaRuc = cedulaRuc;
+                this.empresa = empresa;
+                this.telefono = telefono;
+                this.cuentaBancaria = cuentaBancaria;
+                this.nombresVendedor = nombresVendedor;
+                this.nombreBanco = nombreBanco;
+                this.catalogo = catalogo;
+            }
+
+            productosMasComprados(param1) {
+                if (this.cedulaRuc === param1) {
+                    return [
+                        "Producto A - 150 unidades",
+                        "Producto B - 120 unidades",
+                        "Producto C - 80 unidades"
+                    ];
+                }
+                return [];
+            }
+
+            historicoDeCompras(param1) {
+                if (this.cedulaRuc === param1) {
+                    return [
+                        "2025-01-15: Compra de 50 unidades - $500",
+                        "2025-02-20: Compra de 30 unidades - $300",
+                        "2025-03-10: Compra de 70 unidades - $700"
+                    ];
+                }
+                return [];
+            }
+
+            eliminarProveedor(param1) {
+                if (this.cedulaRuc === param1) {
+                    suppliers = suppliers.filter(s => s.cedulaRuc !== param1);
+                    renderTable();
+                }
+            }
+
+            editarProveedor(param1) {
+                const supplier = suppliers.find(s => s.cedulaRuc === param1);
+                if (supplier) {
+                    supplier.empresa = this.empresa;
+                    supplier.telefono = this.telefono;
+                    supplier.cuentaBancaria = this.cuentaBancaria;
+                    supplier.nombresVendedor = this.nombresVendedor;
+                    supplier.nombreBanco = this.nombreBanco;
+                    supplier.catalogo = this.catalogo;
+                    renderTable();
+                }
+            }
+
+            buscar(param1) {
+                return suppliers.filter(s =>
+                    s.cedulaRuc.toLowerCase().includes(param1.toLowerCase()) ||
+                    s.empresa.toLowerCase().includes(param1.toLowerCase()) ||
+                    s.nombresVendedor.toLowerCase().includes(param1.toLowerCase()) ||
+                    s.telefono.includes(param1) ||
+                    s.cuentaBancaria.toLowerCase().includes(param1.toLowerCase()) ||
+                    s.nombreBanco.toLowerCase().includes(param1.toLowerCase()) ||
+                    s.catalogo.toLowerCase().includes(param1.toLowerCase())
+                );
+            }
+
+            crearProveedor() {
+                suppliers.push(this);
+                renderTable();
+            }
+        }
+
+        let suppliers = [];
+        let editCedulaRuc = null;
+
+        function renderTable(data = suppliers) {
+            const tbody = document.getElementById('suppliersBody');
+            tbody.style.opacity = '0';
+            tbody.innerHTML = '';
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <p>No hay proveedores registrados. Haz clic en "Nuevo Proveedor" para añadir uno.</p>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                data.forEach(supplier => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${supplier.cedulaRuc}</td>
+                        <td>${supplier.empresa}</td>
+                        <td>${supplier.nombresVendedor}</td>
+                        <td>${supplier.telefono}</td>
+                        <td>${supplier.cuentaBancaria}</td>
+                        <td>${supplier.nombreBanco}</td>
+                        <td>${supplier.catalogo}</td>
+                        <td class="actions">
+                            <button class="edit" data-tooltip="Editar" onclick="openModal('edit', '${supplier.cedulaRuc}')"><i class="fas fa-edit"></i></button>
+                            <button class="delete" data-tooltip="Eliminar" onclick="eliminarProveedor('${supplier.cedulaRuc}')"><i class="fas fa-trash"></i></button>
+                            <button class="history" data-tooltip="Historial de Compras" onclick="showHistoricoDeCompras('${supplier.cedulaRuc}')"><i class="fas fa-history"></i></button>
+                            <button class="top-products" data-tooltip="Productos Más Comprados" onclick="showProductosMasComprados('${supplier.cedulaRuc}')"><i class="fas fa-star"></i></button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+            setTimeout(() => {
+                tbody.style.transition = 'opacity 0.4s ease';
+                tbody.style.opacity = '1';
+            }, 50);
+        }
+
+        function openModal(mode, cedulaRuc = null) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const cedulaRucInput = document.getElementById('supplierCedulaRuc');
+            const empresa = document.getElementById('supplierEmpresa');
+            const nombresVendedor = document.getElementById('supplierNombresVendedor');
+            const telefono = document.getElementById('supplierTelefono');
+            const cuentaBancaria = document.getElementById('supplierCuentaBancaria');
+            const nombreBanco = document.getElementById('supplierNombreBanco');
+            const catalogo = document.getElementById('supplierCatalogo');
+
+            modal.style.display = 'flex';
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.transition = 'opacity 0.3s ease';
+                modal.style.opacity = '1';
+            }, 10);
+
+            if (mode === 'add') {
+                title.textContent = 'Nuevo Proveedor';
+                cedulaRucInput.value = '';
+                empresa.value = '';
+                nombresVendedor.value = '';
+                telefono.value = '';
+                cuentaBancaria.value = '';
+                nombreBanco.value = '';
+                catalogo.value = '';
+                cedulaRucInput.disabled = false;
+                editCedulaRuc = null;
+            } else {
+                title.textContent = 'Editar Proveedor';
+                const supplier = suppliers.find(s => s.cedulaRuc === cedulaRuc);
+                cedulaRucInput.value = supplier.cedulaRuc;
+                empresa.value = supplier.empresa;
+                nombresVendedor.value = supplier.nombresVendedor;
+                telefono.value = supplier.telefono;
+                cuentaBancaria.value = supplier.cuentaBancaria;
+                nombreBanco.value = supplier.nombreBanco;
+                catalogo.value = supplier.catalogo;
+                cedulaRucInput.disabled = true;
+                editCedulaRuc = cedulaRuc;
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.style.opacity = '1';
+            }, 300);
+        }
+
+        function crearProveedor() {
+            const cedulaRuc = document.getElementById('supplierCedulaRuc').value.trim();
+            const empresa = document.getElementById('supplierEmpresa').value.trim();
+            const nombresVendedor = document.getElementById('supplierNombresVendedor').value.trim();
+            const telefono = document.getElementById('supplierTelefono').value.trim();
+            const cuentaBancaria = document.getElementById('supplierCuentaBancaria').value.trim();
+            const nombreBanco = document.getElementById('supplierNombreBanco').value.trim();
+            const catalogo = document.getElementById('supplierCatalogo').value.trim();
+
+            if (!cedulaRuc || !empresa || !nombresVendedor || !telefono || !cuentaBancaria || !nombreBanco || !catalogo) {
+                alert('Por favor, completa todos los campos.');
+                return;
+            }
+
+            if (!/^\+?\d{7,15}$/.test(telefono)) {
+                alert('Ingresa un número de teléfono válido (7-15 dígitos).');
+                return;
+            }
+
+            if (!/^\d{10,20}$/.test(cuentaBancaria)) {
+                alert('Ingresa una cuenta bancaria válida (10-20 dígitos).');
+                return;
+            }
+
+            const newProveedor = new Proveedor(cedulaRuc, empresa, telefono, cuentaBancaria, nombresVendedor, nombreBanco, catalogo);
+
+            if (editCedulaRuc) {
+                newProveedor.editarProveedor(editCedulaRuc);
+            } else {
+                if (suppliers.some(s => s.cedulaRuc === cedulaRuc)) {
+                    alert('Ya existe un proveedor con esa cédula/RUC.');
+                    return;
+                }
+                newProveedor.crearProveedor();
+            }
+
+            closeModal();
+        }
+
+        function eliminarProveedor(cedulaRuc) {
+            if (confirm('¿Estás seguro de eliminar este proveedor?')) {
+                const supplier = suppliers.find(s => s.cedulaRuc === cedulaRuc);
+                if (supplier) {
+                    const proveedorInstance = new Proveedor(
+                        supplier.cedulaRuc,
+                        supplier.empresa,
+                        supplier.telefono,
+                        supplier.cuentaBancaria,
+                        supplier.nombresVendedor,
+                        supplier.nombreBanco,
+                        supplier.catalogo
+                    );
+                    proveedorInstance.eliminarProveedor(cedulaRuc);
+                }
+            }
+        }
+
+        function showHistoricoDeCompras(cedulaRuc) {
+            const supplier = suppliers.find(s => s.cedulaRuc === cedulaRuc);
+            if (supplier) {
+                const proveedorInstance = new Proveedor(
+                    supplier.cedulaRuc,
+                    supplier.empresa,
+                    supplier.telefono,
+                    supplier.cuentaBancaria,
+                    supplier.nombresVendedor,
+                    supplier.nombreBanco,
+                    supplier.catalogo
+                );
+                const history = proveedorInstance.historicoDeCompras(cedulaRuc);
+                openInfoModal('Historial de Compras', history);
+            }
+        }
+
+        function showProductosMasComprados(cedulaRuc) {
+            const supplier = suppliers.find(s => s.cedulaRuc === cedulaRuc);
+            if (supplier) {
+                const proveedorInstance = new Proveedor(
+                    supplier.cedulaRuc,
+                    supplier.empresa,
+                    supplier.telefono,
+                    supplier.cuentaBancaria,
+                    supplier.nombresVendedor,
+                    supplier.nombreBanco,
+                    supplier.catalogo
+                );
+                const products = proveedorInstance.productosMasComprados(cedulaRuc);
+                openInfoModal('Productos Más Comprados', products);
+            }
+        }
+
+        function openInfoModal(title, items) {
+            const modal = document.getElementById('infoModal');
+            const modalTitle = document.getElementById('infoModalTitle');
+            const modalList = document.getElementById('infoModalList');
+
+            modalTitle.textContent = title;
+            modalList.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                modalList.appendChild(li);
+            });
+
+            modal.style.display = 'flex';
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.transition = 'opacity 0.3s ease';
+                modal.style.opacity = '1';
+            }, 10);
+        }
+
+        function closeInfoModal() {
+            const modal = document.getElementById('infoModal');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.style.opacity = '1';
+            }, 300);
+        }
+
+        document.getElementById('search').addEventListener('input', (e) => {
+            const query = e.target.value;
+            const dummyProveedor = new Proveedor('', '', '', '', '', '', '');
+            const filtered = dummyProveedor.buscar(query);
+            renderTable(filtered);
+        });
+
+        // Tabla vacía inicialmente
+        renderTable();
+    </script>
+</body>
+</html>
