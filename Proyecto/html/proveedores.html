@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Proveedores - Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../css/proveedores.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Proveedores</h1>
+                <p>Panel de administracion y Gestión</p>
+            </div>
+            <button class="add-button" onclick="openModal('add')">
+                <i class="fas fa-plus"></i> Nuevo Proveedor
+            </button>
+        </div>
+        <div class="controls">
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Buscar por cédula, empresa, contacto...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="filter-select">
+                <select id="filter">
+                    <option value="a-z">Ordenar A-Z</option>
+                    <option value="recent">Creados recientemente</option>
+                    <option value="oldest">Más antiguos</option>
+                </select>
+                <i class="fas fa-filter icon-filter"></i>
+                <i class="fas fa-chevron-down icon-chevron"></i>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table id="suppliersTable">
+                <thead>
+                    <tr>
+                        <th>Cédula/RUC</th>
+                        <th>Empresa</th>
+                        <th>Contacto</th>
+                        <th>Teléfono</th>
+                        <th>Cuenta Bancaria</th>
+                        <th>Nombre del Banco</th>
+                        <th>Catálogo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="suppliersBody">
+                    <tr>
+                        <td colspan="8" class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <p>No hay proveedores registrados. Haz clic en "Nuevo Proveedor" para añadir uno.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Nuevo Proveedor</h2>
+            <input type="hidden" id="supplierId">
+            <div class="form-grid">
+                <input type="number" id="supplierCedulaRuc" placeholder="Cédula o RUC" onkeypress="restrictToNumbers(event)" onpaste="restrictPaste(event)">
+                <input type="text" id="supplierCompany" placeholder="Nombre de la empresa">
+                <input type="text" id="supplierContactName" placeholder="Nombre del vendedor">
+                <input type="number" id="supplierPhone" placeholder="Teléfono (ej. 0987654321)" onkeypress="restrictToNumbers(event)" onpaste="restrictPaste(event)">
+                <input type="number" id="supplierBankAccount" placeholder="Cuenta bancaria" onkeypress="restrictToNumbers(event)" onpaste="restrictPaste(event)">
+                <input type="text" id="supplierBankName" placeholder="Nombre del banco">
+                <input type="text" id="supplierCatalog" placeholder="Catálogo">
+            </div>
+            <div class="modal-actions">
+                <button class="save" onclick="createSupplier()">Guardar</button>
+                <button class="cancel" onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="infoModal">
+        <div class="info-modal-content">
+            <h3 id="infoModalTitle"></h3>
+            <ul id="infoModalList"></ul>
+            <div class="modal-actions">
+                <button class="cancel" onclick="closeInfoModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/proveedores.js">
+       
+    </script>
+</body>
+</html>
