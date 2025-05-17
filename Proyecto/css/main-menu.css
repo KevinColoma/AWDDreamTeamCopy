@@ -1,0 +1,138 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(145deg, #f1f3f5 0%, #e2e8f0 100%);
+}
+header {
+    background: none;
+    box-shadow: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    color: #1e293b;
+    position: static;
+    left: 0;
+    transform: none;
+    max-width: 100vw;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.sushi-box {
+    background: #fff;
+    border-radius: 2.5rem;
+    box-shadow: 0 10px 40px rgba(30,41,59,0.13);
+    width: 92vw;
+    max-width: 1100px;
+    min-height: 65vh;
+    margin: 3rem 0 2rem 0;
+    padding: 3rem 2rem 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.5s ease-out;
+}
+.main-menu {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
+    justify-content: center;
+    margin: 2rem 0 2rem 0;
+}
+.menu-card {
+    background: linear-gradient(135deg, #f8fafc 60%, #e2e8f0 100%);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 16px rgba(30,41,59,0.07);
+    padding: 2.2rem 2.7rem;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    cursor: pointer;
+    border: 1.5px solid #e2e8f0;
+    position: relative;
+}
+.menu-card:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 16px 40px rgba(30,41,59,0.16);
+    background: linear-gradient(135deg, #e2e8f0 0%, #f8fafc 100%);
+}
+.menu-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #475569;
+    opacity: 0.85;
+}
+.menu-card h2 {
+    color: #1e293b;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+.menu-card p {
+    color: #64748b;
+    font-size: 1rem;
+    text-align: center;
+}
+.login-btn {
+    display: inline-block;
+    margin: 2.5rem auto 0 auto;
+    padding: 1.1rem 2.5rem;
+    background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    color: #fff;
+    border: none;
+    border-radius: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(30,41,59,0.10);
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+.login-btn:hover {
+    background: linear-gradient(135deg, #2d3748 0%, #64748b 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+@media (max-width: 900px) {
+    .sushi-box {
+        width: 98vw;
+        padding: 1.5rem 0.5rem;
+    }
+    .main-menu {
+        gap: 1.2rem;
+    }
+}
+@media (max-width: 600px) {
+    .sushi-box {
+        min-height: 70vh;
+        padding: 1rem 0.2rem;
+    }
+    .main-menu {
+        grid-template-columns: 1fr;
+    }
+    .menu-card {
+        padding: 1.2rem 0.7rem;
+        min-width: 140px;
+    }
+}
+footer {
+    background: none;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+    color: #64748b;
+    position: static;
+    left: 0;
+    transform: none;
+    max-width: 100vw;
+    padding: 1rem 0 0 0;
+}
