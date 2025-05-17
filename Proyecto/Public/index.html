@@ -6,34 +6,67 @@
     <link rel="stylesheet" href="../Login/CSS/style.css">
     <title>Bazar Prototipo - Página Principal</title>
     <style>
-        .main-menu {
+        body {
+            min-height: 100vh;
             display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            margin: 3rem 0 2rem 0;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(145deg, #f1f3f5 0%, #e2e8f0 100%);
         }
-        .menu-card {
+        .sushi-box {
             background: #fff;
-            border-radius: 1.2rem;
-            box-shadow: 0 6px 18px rgba(30,41,59,0.08);
-            padding: 2rem 2.5rem;
-            min-width: 220px;
-            min-height: 120px;
+            border-radius: 2.5rem;
+            box-shadow: 0 10px 40px rgba(30,41,59,0.13);
+            width: 92vw;
+            max-width: 1100px;
+            min-height: 65vh;
+            margin: 3rem 0 2rem 0;
+            padding: 3rem 2rem 2.5rem 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .main-menu {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            justify-content: center;
+            margin: 2rem 0 2rem 0;
+        }
+        .menu-card {
+            background: linear-gradient(135deg, #f8fafc 60%, #e2e8f0 100%);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 16px rgba(30,41,59,0.07);
+            padding: 2.2rem 2.7rem;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
             cursor: pointer;
+            border: 1.5px solid #e2e8f0;
+            position: relative;
         }
         .menu-card:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 12px 32px rgba(30,41,59,0.13);
+            transform: translateY(-8px) scale(1.04);
+            box-shadow: 0 16px 40px rgba(30,41,59,0.16);
+            background: linear-gradient(135deg, #e2e8f0 0%, #f8fafc 100%);
+        }
+        .menu-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #475569;
+            opacity: 0.85;
         }
         .menu-card h2 {
             color: #1e293b;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
         .menu-card p {
             color: #64748b;
@@ -42,51 +75,80 @@
         }
         .login-btn {
             display: inline-block;
-            margin: 2rem auto 0 auto;
-            padding: 0.9rem 2.2rem;
+            margin: 2.5rem auto 0 auto;
+            padding: 1.1rem 2.5rem;
             background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
             color: #fff;
             border: none;
-            border-radius: 0.9rem;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 1.2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 16px rgba(30,41,59,0.10);
             transition: background 0.3s, transform 0.2s;
             text-decoration: none;
+            letter-spacing: 0.5px;
         }
         .login-btn:hover {
             background: linear-gradient(135deg, #2d3748 0%, #64748b 100%);
             transform: translateY(-2px) scale(1.04);
         }
+        @media (max-width: 900px) {
+            .sushi-box {
+                width: 98vw;
+                padding: 1.5rem 0.5rem;
+            }
+            .main-menu {
+                gap: 1.2rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .sushi-box {
+                min-height: 70vh;
+                padding: 1rem 0.2rem;
+            }
+            .main-menu {
+                grid-template-columns: 1fr;
+            }
+            .menu-card {
+                padding: 1.2rem 0.7rem;
+                min-width: 140px;
+            }
+        }
     </style>
+    
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <h1>BAZAR PROTOTIPO</h1>
     </header>
-    <div class="container">
+    <div class="sushi-box">
         <div class="main-menu">
             <div class="menu-card" onclick="window.location.href='#productos'">
+                <i class="ri-box-3-line menu-icon"></i>
                 <h2>Productos</h2>
                 <p>Explora y administra el inventario de productos.</p>
             </div>
             <div class="menu-card" onclick="window.location.href='#clientes'">
+                <i class="ri-user-3-line menu-icon"></i>
                 <h2>Clientes</h2>
                 <p>Gestión de clientes y sus datos.</p>
             </div>
             <div class="menu-card" onclick="window.location.href='#proveedores'">
+                <i class="ri-truck-line menu-icon"></i>
                 <h2>Proveedores</h2>
                 <p>Consulta y administra tus proveedores.</p>
             </div>
             <div class="menu-card" onclick="window.location.href='#facturacion'">
+                <i class="ri-file-list-3-line menu-icon"></i>
                 <h2>Facturación</h2>
                 <p>Genera y consulta facturas fácilmente.</p>
             </div>
-            <!-- Puedes agregar más menús aquí -->
+            <!-- Agregar menu  desde aqui-->
         </div>
-        <div style="text-align:center;">
-            <a href="../Login/index.php" class="login-btn">Iniciar Sesión</a>
+        <div style="text-align:center; width:100%;">
+            <a href="#login" class="login-btn">Iniciar Sesión</a>
         </div>
     </div>
     <footer>
