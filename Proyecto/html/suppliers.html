@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Proveedores - Profesional</title>
+    <link rel="stylesheet" href="../css/suppliers.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="../css/proveedores.css">
-
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div>
                 <h1>Proveedores</h1>
-                <p>Panel de administracion y Gestión</p>
+                <p>Panel de administración y Gestión</p>
             </div>
             <button class="add-button" onclick="openModal('add')">
                 <i class="fas fa-plus"></i> Nuevo Proveedor
@@ -48,7 +47,7 @@
                         <th>Catálogo</th>
                         <th>Acciones</th>
                     </tr>
-                </thead>
+                </thead>  
                 <tbody id="suppliersBody">
                     <tr>
                         <td colspan="8" class="empty-state">
@@ -81,18 +80,24 @@
         </div>
     </div>
 
-    <div class="modal" id="infoModal">
-        <div class="info-modal-content">
-            <h3 id="infoModalTitle"></h3>
-            <ul id="infoModalList"></ul>
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h2 id="confirmModalTitle">Confirmar Eliminación</h2>
+            <p id="confirmModalMessage"></p>
             <div class="modal-actions">
-                <button class="cancel" onclick="closeInfoModal()">Cerrar</button>
+                <button class="save" id="confirmDeleteBtn">Confirmar</button>
+                <button class="cancel" onclick="closeConfirmModal()">Cancelar</button>
             </div>
         </div>
     </div>
 
-    <script src="../js/proveedores.js">
-       
-    </script>
+    <div class="modal" id="successModal">
+        <div class="modal-content success-modal-content">
+            <p id="successModalMessage"></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/suppliers.js"></script> 
 </body>
 </html>
