@@ -3,10 +3,11 @@ header('Content-Type: application/json');
 include 'connection.php';
 
 $action = isset($_POST['action']) ? $_POST['action'] : '';
+$id = isset($_POST['id']) ? $_POST['id'] : null;
 
 function response($success, $message, $data = null) {
     if (!$success) {
-        error_log("Error: $message"); // Registra en el log del servidor
+        error_log("Error: $message");
     }
     echo json_encode(['success' => $success, 'message' => $message, 'data' => $data]);
     exit;
@@ -25,7 +26,6 @@ try {
             $bankName = $_POST['bankName'] ?? '';
             $catalog = $_POST['catalog'] ?? '';
 
-            // Validaciones
             if (empty($idNumber) || empty($company) || empty($contactName) || empty($phone) || empty($bankAccount) || empty($bankName) || empty($catalog)) {
                 response(false, 'Todos los campos son obligatorios');
             }
@@ -39,7 +39,6 @@ try {
                 response(false, 'Cuenta bancaria no válida (10-20 dígitos)');
             }
 
-            // Verificar si idNumber ya existe
             $stmt = $conn->prepare("SELECT id FROM suppliers WHERE idNumber = :idNumber AND id != :id");
             $stmt->execute(['idNumber' => $idNumber, 'id' => $id ?: 0]);
             if ($stmt->rowCount() > 0) {
@@ -75,9 +74,16 @@ try {
             break;
 
         case 'read':
-            $stmt = $conn->query("SELECT * FROM suppliers");
-            $suppliers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            response(true, 'Proveedores obtenidos', $suppliers);
+            if ($id) {
+                $stmt = $conn->prepare("SELECT * FROM suppliers WHERE id = :id");
+                $stmt->execute(['id' => $id]);
+                $suppliers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                response(true, 'Proveedor obtenido', $suppliers);
+            } else {
+                $stmt = $conn->query("SELECT * FROM suppliers");
+                $suppliers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                response(true, 'Proveedores obtenidos', $suppliers);
+            }
             break;
 
         case 'delete':
