@@ -1,0 +1,19 @@
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS variedades;
+USE variedades;
+
+-- Crear la tabla suppliers
+CREATE TABLE IF NOT EXISTS suppliers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    idNumber VARCHAR(13) NOT NULL UNIQUE,
+    company VARCHAR(255) NOT NULL,
+    contactName VARCHAR(255) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    bankAccount VARCHAR(20) NOT NULL,
+    bankName VARCHAR(255) NOT NULL,
+    catalog VARCHAR(255) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Eliminar cualquier dato preexistente
+TRUNCATE TABLE suppliers;
