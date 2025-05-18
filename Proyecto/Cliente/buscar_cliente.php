@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include '../conexion/conexion.php';
 
 $taxid = $_GET['taxid'];
 $query = $conn->prepare("SELECT * FROM client WHERE TaxID = ?");

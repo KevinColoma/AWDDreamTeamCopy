@@ -1,0 +1,12 @@
+-- Tabla de cientes para login y registro
+
+
+CREATE TABLE client (
+  TaxID VARCHAR(20) PRIMARY KEY,
+  FullName VARCHAR(100),
+  Address TEXT,
+  `ReferenceNote` TEXT,
+  Phone VARCHAR(20),
+  Email VARCHAR(100)
+);
+
