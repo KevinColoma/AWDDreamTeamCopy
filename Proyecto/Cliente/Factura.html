@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Factura - Bazar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/cliente-style.css">
   <script src="mainCliente.js" defer></script>
 </head>
@@ -13,38 +14,41 @@
   </header>
 
   <div class="theme-toggle">
-    <button type="button" onclick="toggleTheme()">🌓 Cambiar tema</button>
+    <button type="button" onclick="toggleTheme()" aria-label="Cambiar tema">🌓 Cambiar tema</button>
   </div>
 
-  <h2>Formulario de Factura</h2>
-  <form id="invoiceForm" method="POST" action="guardar_cliente.php">
-    <label>Cédula (TaxID):</label>
-    <input type="text" id="taxid" name="taxid" onblur="getClientData()" required>
+  <main>
+    <h2>Formulario de Factura</h2>
+    <form id="invoiceForm" method="POST" action="guardar_cliente.php" novalidate>
 
-    <label>Nombre completo:</label>
-    <input type="text" id="fullname" name="fullname" required>
+      <label for="facturaTipo">Tipo de factura:</label>
+      <select id="facturaTipo" name="facturaTipo" onchange="toggleCliente()" required>
+        <option value="">Selecciona una opción</option>
+        <option value="cliente">Cliente</option>
+        <option value="consumidor_final">Consumidor Final</option>
+      </select>
 
-    <label>Dirección:</label>
-    <input type="text" id="address" name="address">
+      <label for="taxid">Cédula de Identidad:</label>
+      <input type="text" id="taxid" name="taxid" placeholder="Ej: 0123456789" pattern="^[0-9]{7,10}$" title="Solo números (7-10 dígitos)" onblur="getClientData()" required>
 
-    <label>Referencias:</label>
-    <input type="text" id="referenceNote" name="referenceNote">
+      <label for="fullname">Nombre completo:</label>
+      <input type="text" id="fullname" name="fullname" placeholder="Ej: Juan Pérez" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,100}$" title="Solo letras y espacios (mínimo 3 caracteres)" required>
 
-    <label>Teléfono:</label>
-    <input type="text" id="phone" name="phone">
+      <label for="address">Dirección:</label>
+      <input type="text" id="address" name="address" placeholder="Ej: Av. Siempre Viva 742" maxlength="150">
 
-    <label>Email:</label>
-    <input type="email" id="email" name="email">
+      <label for="referenceNote">Referencia:</label>
+      <input type="text" id="referenceNote" name="referenceNote" placeholder="Ej: Frente al parque" maxlength="100">
 
-    <label>Tipo de factura:</label>
-    <select id="facturaTipo" onchange="toggleCliente()">
-      <option value="cliente">Cliente</option>
-      <option value="consumidor_final">Consumidor Final</option>
-    </select>
+      <label for="phone">Teléfono:</label>
+      <input type="tel" id="phone" name="phone" placeholder="Ej: +593987654321" pattern="^\+?[0-9]{7,15}$" title="Formato válido: 0999999999 o +593999999999" required>
 
-    <br><br>
-    <button type="submit">Guardar Cliente / Generar Factura</button>
-  </form>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Ej: ejemplo@correo.com" pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" title="Correo electrónico válido" required>
+
+      <button type="submit">Guardar Cliente / Generar Factura</button>
+    </form>
+  </main>
 
   <footer>
     <p>Desarrollado por</p>
