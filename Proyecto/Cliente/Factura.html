@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-  <link rel="stylesheet" href="facturaStyle.css">
 <head>
   <meta charset="UTF-8">
   <title>Factura - Bazar</title>
-  <script src="main.js" defer></script>
-  
-
+  <link rel="stylesheet" href="facturaStyle.css">
+  <script src="mainCliente.js" defer></script>
 </head>
-<header>
-    <h1>Clientes</h1>
-</header>
+
 <body>
+  <header>
+    <h1>Clientes</h1>
+  </header>
+
   <div class="theme-toggle">
-  <button type="button" onclick="toggleTheme()">🌓 Cambiar tema</button>
-</div>
+    <button type="button" onclick="toggleTheme()">🌓 Cambiar tema</button>
+  </div>
 
   <h2>Formulario de Factura</h2>
   <form id="invoiceForm" method="POST" action="guardar_cliente.php">
@@ -45,12 +45,9 @@
     <br><br>
     <button type="submit">Guardar Cliente / Generar Factura</button>
   </form>
+
+  <footer>
+    <p>Desarrollado por</p>
+  </footer>
 </body>
-
-
-
-
- <footer>
-        <p>Desarrollado por </p>
-</footer>
-  </html>
+</html>
