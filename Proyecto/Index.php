@@ -26,17 +26,12 @@ $isLogged = isset($_SESSION['user_id']) ? 'true' : 'false';
                 <h2>Productos</h2>
                 <p>Explora y administra el inventario de productos.</p>
             </div>
-            <div class="menu-card" onclick="window.location.href='#clientes'">
-                <i class="ri-user-3-line menu-icon"></i>
-                <h2>Clientes</h2>
-                <p>Gestión de clientes y sus datos.</p>
-            </div>
-            <div class="menu-card" onclick="window.location.href='#proveedores'">
+            <div class="menu-card" onclick="window.location.href='HTML/suppliers.html'">
                 <i class="ri-truck-line menu-icon"></i>
                 <h2>Proveedores</h2>
                 <p>Consulta y administra tus proveedores.</p>
             </div>
-            <div class="menu-card" onclick="window.location.href='#facturacion'">
+            <div class="menu-card" onclick="window.location.href='CLiente/Factura.html'">
                 <i class="ri-file-list-3-line menu-icon"></i>
                 <h2>Facturación</h2>
                 <p>Genera y consulta facturas fácilmente.</p>
