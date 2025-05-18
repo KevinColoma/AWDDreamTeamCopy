@@ -1,7 +1,3 @@
-
-
-window.isLogged = false;
-
 function requireLogin(e) {
     if (!window.isLogged) {
         e.preventDefault();

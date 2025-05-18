@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+$isLogged = isset($_SESSION['user_id']) ? 'true' : 'false';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,6 +13,9 @@
     <title>Bazar Prototipo - Página Principal</title>
 </head>
 <body>
+    <script>
+        window.isLogged = <?php echo $isLogged; ?>;
+    </script>
     <header>
         <h1>BAZAR PROTOTIPO</h1>
     </header>
