@@ -24,11 +24,14 @@ try {
             $phone = $_POST['phone'] ?? '';
             $bankAccount = $_POST['bankAccount'] ?? '';
             $bankName = $_POST['bankName'] ?? '';
-            $catalog = $_POST['catalog'] ?? '';
+            $catalog = $_POST['catalog'] ?? ''; // Catalog can be empty
 
-            if (empty($idNumber) || empty($company) || empty($contactName) || empty($phone) || empty($bankAccount) || empty($bankName) || empty($catalog)) {
-                response(false, 'Todos los campos son obligatorios');
+            // Validate that all fields except catalog are non-empty
+            if (empty($idNumber) || empty($company) || empty($contactName) || empty($phone) || empty($bankAccount) || empty($bankName)) {
+                response(false, 'Todos los campos obligatorios son requeridos (excepto catálogo)');
             }
+
+            // Validate field formats
             if (!preg_match('/^\d{10}$|^\d{13}$/', $idNumber)) {
                 response(false, 'Cédula (10 dígitos) o RUC (13 dígitos) no válido');
             }
@@ -39,6 +42,7 @@ try {
                 response(false, 'Cuenta bancaria no válida (10-20 dígitos)');
             }
 
+            // Check for duplicate idNumber
             $stmt = $conn->prepare("SELECT id FROM suppliers WHERE idNumber = :idNumber AND id != :id");
             $stmt->execute(['idNumber' => $idNumber, 'id' => $id ?: 0]);
             if ($stmt->rowCount() > 0) {
@@ -54,7 +58,7 @@ try {
                     'phone' => $phone,
                     'bankAccount' => $bankAccount,
                     'bankName' => $bankName,
-                    'catalog' => $catalog
+                    'catalog' => $catalog // Can be empty string
                 ]);
                 response(true, 'Proveedor creado exitosamente');
             } else {
@@ -66,7 +70,7 @@ try {
                     'phone' => $phone,
                     'bankAccount' => $bankAccount,
                     'bankName' => $bankName,
-                    'catalog' => $catalog,
+                    'catalog' => $catalog, // Can be empty string
                     'id' => $id
                 ]);
                 response(true, 'Proveedor actualizado exitosamente');
