@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="CSS//style.css">
     <title>Document</title>
 </head>
-<header>
-    <h1>BAZAR PROTOTIPO</h1>
-</header>
+
 <body>
    
     <div class="LoginForm">
@@ -27,9 +25,7 @@
             </div>
         </form>
     </div>
-    <footer>
-        <p>Desarrollado por Dennison</p>
-    </footer>
+  
 
 
     

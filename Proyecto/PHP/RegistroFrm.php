@@ -7,9 +7,7 @@
     <title>Registro</title>
 </head>
 <body>
-    <header>
-        <h1>BAZAR PROTOTIPO</h1>
-    </header>
+ 
     <div class="LoginForm">
         <form action="PHP/registro.php" method="POST" class="inputsForm">
             <p>Registro</p>
@@ -32,8 +30,6 @@
             </div>
         </form>
     </div>
-    <footer>
-        <p>Desarrollado por Dennison</p>
-    </footer>
+
 </body>
 </html>
