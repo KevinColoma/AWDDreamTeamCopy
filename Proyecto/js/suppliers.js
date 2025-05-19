@@ -8,7 +8,6 @@ function renderTable(data) {
 
     let sortedData = [...data];
     if (currentFilter === 'a-z') {
-        // Ordenar alfabéticamente por nombre de la empresa (A-Z)
         sortedData.sort((a, b) => a.company.localeCompare(b.company));
     } else if (currentFilter === 'recent') {
         sortedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -143,10 +142,13 @@ function createSupplier() {
     const bankName = document.getElementById('supplierBankName').value.trim();
     const catalog = document.getElementById('supplierCatalog').value.trim();
 
-    if (!idNumber || !company || !contactName || !phone || !bankAccount || !bankName || !catalog) {
-        alert('Por favor, completa todos los campos.');
+    // Validate that all fields except catalog are non-empty
+    if (!idNumber || !company || !contactName || !phone || !bankAccount || !bankName) {
+        alert('Por favor, completa todos los campos obligatorios (excepto catálogo).');
         return;
     }
+
+    // Validate numeric fields
     if (!/^\d+$/.test(idNumber)) {
         alert('La cédula o RUC debe contener solo números.');
         return;
@@ -159,6 +161,8 @@ function createSupplier() {
         alert('La cuenta bancaria debe contener solo números.');
         return;
     }
+
+    // Validate field lengths
     if (!/^\d{10}$|^\d{13}$/.test(idNumber)) {
         alert('La cédula (10 dígitos) o RUC (13 dígitos) no es válida.');
         return;
