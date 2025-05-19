@@ -156,9 +156,50 @@ footer {
     color: #475569;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 900px) {
     .LoginForm {
         max-width: 95vw;
         padding: 1.2rem 2vw;
+    }
+    .container {
+        padding: 1rem;
+        margin: 0.5rem 0;
+    }
+    header h1 {
+        font-size: 1.3rem;
+    }
+}
+@media (max-width: 600px) {
+    .LoginForm {
+        max-width: 98vw;
+        padding: 0.8rem 1vw;
+    }
+    .container {
+        padding: 0.5rem;
+    }
+    header h1 {
+        font-size: 1.1rem;
+    }
+    .register-link {
+        font-size: 12px;
+    }
+    .LoginForm button {
+        font-size: 0.95rem;
+        padding: 0.6rem 0.8rem;
+    }
+    .LoginForm input {
+        font-size: 0.95rem;
+        padding: 0.6rem 0.8rem;
+    }
+}
+@media (max-width: 400px) {
+    .LoginForm {
+        padding: 0.5rem 0.2rem;
+    }
+    .container {
+        padding: 0.2rem;
+    }
+    header h1 {
+        font-size: 0.95rem;
     }
 }

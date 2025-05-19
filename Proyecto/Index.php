@@ -16,9 +16,7 @@ $isLogged = isset($_SESSION['user_id']) ? 'true' : 'false';
     <script>
         window.isLogged = <?php echo $isLogged; ?>;
     </script>
-    <header>
-        <h1>BAZAR PROTOTIPO</h1>
-    </header>
+
     <div class="sushi-box">
         <div class="main-menu">
             <div class="menu-card" onclick="window.location.href='#productos'">
@@ -42,9 +40,7 @@ $isLogged = isset($_SESSION['user_id']) ? 'true' : 'false';
             <a href="PHP/LoginFrm.php" class="login-btn">Iniciar Sesión</a>
         </div>
     </div>
-    <footer>
-        <p>Desarrollado por Dennison</p>
-    </footer>
+
     <script src="JS/main-menu-login-guard.js"></script>
 </body>
 </html>
