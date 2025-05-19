@@ -149,7 +149,7 @@ $pdf->MultiCell(0, 4, utf8_decode("- Esta factura sirve como garantía para cual
 - Los artículos personalizados no tienen devolución.
 - Gracias por su compra."), 0, 'L');
 
-// Salida del PDF
+// cerramos el pdf
 $nombre_archivo = "Factura_" . ($facturaTipo === "consumidor_final" ? "ConsumidorFinal" : str_replace(' ', '_', $fullname));
 $pdf->Output('I', $nombre_archivo . '.pdf');
 ?>
