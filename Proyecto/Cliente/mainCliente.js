@@ -59,6 +59,31 @@ function getClientData() {
     }
   });
 
+
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const taxid = document.getElementById("taxid");
+  const fullname = document.getElementById("fullname");
+  const phone = document.getElementById("phone");
+
+  // Solo números (taxid)
+  taxid.addEventListener("input", () => {
+    taxid.value = taxid.value.replace(/[^0-9]/g, '');
+  });
+
+  // Solo letras y espacios (fullname)
+  fullname.addEventListener("input", () => {
+    fullname.value = fullname.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '');
+  });
+
+  // Solo números, + opcional al inicio (phone)
+  phone.addEventListener("input", () => {
+    phone.value = phone.value.replace(/(?!^\+)[^\d]/g, '');
+  });
+});
+
+
 /*function getClientData() {
     const taxid = document.getElementById("taxid").value;
     if (taxid === "") return;
