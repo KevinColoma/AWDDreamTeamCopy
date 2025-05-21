@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navegación</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="logo-text">Panel de Control</h2>
+            <button class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="#" class="nav-item active" data-target="suppliers.html">
+                    <i class="fas fa-users nav-icon"></i>
+                    <span>Proveedores</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-item" data-target="catalog.php">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>Catálogos</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-item" data-target="productManagement.php">
+                    <i class="fas fa-box nav-icon"></i>
+                    <span>Productos</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-bell nav-icon"></i>
+                    <span>Notificaciones</span>
+                </a>
+            </li>
+        </ul>
+        <div class="user-section">
+            <div class="user-info">
+                <i class="fas fa-user-circle nav-icon"></i>
+                <span>Usuario</span>
+            </div>
+            <button class="logout-btn" data-tooltip="Cerrar Sesión">
+                <i class="fas fa-sign-out-alt nav-icon"></i>
+            </button>
+        </div>
+    </nav>
+    <main class="main-content">
+        <iframe id="content-frame" src="suppliers.html" frameborder="0" style="width: 100%; height: 100vh;"></iframe>
+    </main>
+    <script src="../js/nav.js">
+
+    </script>
+</body>
+</html>
