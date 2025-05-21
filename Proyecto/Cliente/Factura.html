@@ -10,7 +10,7 @@
 
 <body>
   <header>
-    <h1>Clientes</h1>
+    <h1>Formulario de Factura</h1>
   </header>
 
   <div class="theme-toggle">
@@ -18,7 +18,7 @@
   </div>
 
   <main>
-    <h2>Formulario de Factura</h2>
+    
     <form id="invoiceForm" method="POST" action="guardar_cliente.php" novalidate>
 
       <label for="facturaTipo">Tipo de factura:</label>
@@ -46,7 +46,7 @@
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" placeholder="Ej: ejemplo@correo.com" pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" title="Correo electrónico válido" required>
 
-
+      
       <button type="submit">Guardar Cliente / Generar Factura</button>
     </form>
   </main>
