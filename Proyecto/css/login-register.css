@@ -8,11 +8,13 @@ body {
     background: linear-gradient(145deg, #f1f3f5 0%, #e2e8f0 100%);
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center; /* Cambia de flex-start a center para centrar verticalmente */
     min-height: 100vh;
-    padding: 1rem;
+    height: 100vh; /* Asegura altura completa de la ventana */
+    padding: 0; /* Elimina padding para evitar movimiento */
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     color: #1e293b;
+    overflow: hidden; /* Evita scroll innecesario */
 }
 
 .container {
@@ -156,6 +158,70 @@ footer {
     color: #475569;
 }
 
+.login-bg {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-main-panel {
+    background: #fff;
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px rgba(60, 60, 120, 0.18);
+    padding: 3.5rem 2.8rem 2.8rem 2.8rem;
+    max-width: 520px;
+    width: 100%;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+.login-main-panel header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #3b3b6d;
+    margin-bottom: 0.2em;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.login-main-panel .subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+    border-radius: 0.75rem;
+    padding: 0.7em 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    animation: fadeIn 0.4s;
+}
+
+.success-message {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+    border-radius: 0.75rem;
+    padding: 0.7em 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    animation: fadeIn 0.4s;
+}
+
 @media (max-width: 900px) {
     .LoginForm {
         max-width: 95vw;
@@ -169,37 +235,35 @@ footer {
         font-size: 1.3rem;
     }
 }
-@media (max-width: 600px) {
-    .LoginForm {
+@media (max-width: 700px) {
+    .welcome-banner h1 {
+        font-size: 2rem;
+    }
+    .login-main-panel {
+        padding: 1.5rem 0.7rem 1.5rem 0.7rem;
+        min-height: 340px;
         max-width: 98vw;
-        padding: 0.8rem 1vw;
     }
-    .container {
-        padding: 0.5rem;
+    .login-main-panel header h2 {
+        font-size: 1.3rem;
     }
-    header h1 {
-        font-size: 1.1rem;
+}
+@media (max-width: 600px) {
+    .login-main-panel {
+        padding: 1rem 0.2rem;
+        min-height: 250px;
+        max-width: 99vw;
     }
-    .register-link {
-        font-size: 12px;
-    }
-    .LoginForm button {
-        font-size: 0.95rem;
-        padding: 0.6rem 0.8rem;
-    }
-    .LoginForm input {
-        font-size: 0.95rem;
-        padding: 0.6rem 0.8rem;
+    .LoginForm {
+        max-width: 99vw;
+        padding: 0.8rem 0.2rem;
     }
 }
 @media (max-width: 400px) {
+    .login-main-panel {
+        padding: 0.5rem 0.1rem;
+    }
     .LoginForm {
-        padding: 0.5rem 0.2rem;
-    }
-    .container {
-        padding: 0.2rem;
-    }
-    header h1 {
-        font-size: 0.95rem;
+        padding: 0.5rem 0.1rem;
     }
 }

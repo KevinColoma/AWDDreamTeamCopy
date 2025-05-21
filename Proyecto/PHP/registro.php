@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../conexion/conexio';
+include_once 'conection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('sss', $username, $email, $hash);
             if ($stmt->execute()) {
-                header('Location: index.html?registro=exitoso');
+                header('Location: ../LoginFrm.php?registro=exitoso');
                 exit();
             } else {
                 $error = "Error al registrar. Intenta de nuevo.";

@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../conexion/conexion.php';
+include_once 'connection.php';
 
 // Verificar si el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,13 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            header('Location: ../../Cliente/Factura.html');
+            header('Location: ../HTML/nav.html');
             exit();
         } else {
-            $error = "Contraseña incorrecta.";
+            header('Location: ../LoginFrm.php?error=1');
+            exit();
         }
     } else {
-        $error = "Usuario no encontrado.";
+        header('Location: ../LoginFrm.php?error=1');
+        exit();
     }
 }
 ?>
