@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('sss', $username, $email, $hash);
             if ($stmt->execute()) {
-                header('Location: ../LoginFrm.php?registro=exitoso');
+                header('Location: ../Index.html?registro=exitoso');
                 exit();
             } else {
                 $error = "Error al registrar. Intenta de nuevo.";
