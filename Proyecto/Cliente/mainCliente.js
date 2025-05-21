@@ -111,3 +111,86 @@ function getClientData() {
 
 */
 
+
+
+
+
+
+
+// Función para buscar productos
+function buscarProducto() {
+    const query = document.getElementById("buscarProducto").value;
+    if (!query) return;
+    
+    fetch(`buscar_productos.php?q=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const lista = document.getElementById("lista-productos");
+            lista.innerHTML = '';
+            
+            if (data.length === 0) {
+                lista.innerHTML = '<li>No se encontraron productos</li>';
+            } else {
+                data.forEach(producto => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        ${producto.name} - $${producto.salePrice} 
+                        <button onclick="agregarProducto('${producto.id}', '${producto.name.replace("'", "\\'")}', ${producto.salePrice})">
+                            Agregar
+                        </button>
+                    `;
+                    lista.appendChild(li);
+                });
+            }
+            
+            document.getElementById("resultados-busqueda").style.display = 'block';
+        });
+}
+
+// Función para agregar productos a la factura
+function agregarProducto(id, nombre, precio) {
+    const tbody = document.querySelector("#tabla-productos tbody");
+    const fila = document.createElement('tr');
+    fila.id = `producto-${id}`;
+    fila.innerHTML = `
+        <td>${nombre}</td>
+        <td><input type="number" min="1" value="1" class="cantidad" onchange="actualizarTotal(${id}, ${precio})"></td>
+        <td class="precio-unitario">${precio.toFixed(2)}</td>
+        <td class="total-producto">${precio.toFixed(2)}</td>
+        <td><button type="button" onclick="eliminarProducto('${id}')">Eliminar</button></td>
+    `;
+    tbody.appendChild(fila);
+    actualizarProductosJson();
+}
+
+// Funciones auxiliares
+function eliminarProducto(id) {
+    document.getElementById(`producto-${id}`).remove();
+    actualizarProductosJson();
+}
+
+function actualizarTotal(id, precioUnitario) {
+    const cantidad = document.querySelector(`#producto-${id} .cantidad`).value;
+    const total = cantidad * precioUnitario;
+    document.querySelector(`#producto-${id} .total-producto`).textContent = total.toFixed(2);
+    actualizarProductosJson();
+}
+
+function actualizarProductosJson() {
+    const productos = [];
+    document.querySelectorAll("#tabla-productos tbody tr").forEach(fila => {
+        const id = fila.id.replace('producto-', '');
+        const nombre = fila.cells[0].textContent;
+        const cantidad = fila.cells[1].querySelector('input').value;
+        const precio = parseFloat(fila.cells[2].textContent);
+        
+        productos.push({
+            id,
+            nombre,
+            cantidad: parseInt(cantidad),
+            precio
+        });
+    });
+    
+    document.getElementById("productosJson").value = JSON.stringify(productos);
+}

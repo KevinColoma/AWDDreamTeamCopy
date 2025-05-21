@@ -2,7 +2,7 @@
 include '../PHP/connection.php';
 require('fpdf/fpdf.php');
 
-// Configuración general de empresa (puede venir de BD si prefieres)
+// Configuración general de empresa
 $empresa = [
     'nombre' => 'Bazar Artículos Variedades S.A.',
     'nif' => 'B-12345678',
@@ -38,6 +38,18 @@ if ($facturaTipo !== "consumidor_final") {
     }
 }
 
+// OBTENER PRODUCTOS DE LA BASE DE DATOS
+$productos = [];
+$query = $conn->query("SELECT name, salePrice ,availability FROM products WHERE stock > 0");
+while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+    // Aquí puedes ajustar la cantidad según necesites (en este ejemplo uso 1 como cantidad predeterminada)
+    $productos[] = [
+        'descripcion' => $row['name'],
+        'cantidad' => $row['availability'],
+        'precio' => $row['salePrice']
+    ];
+}
+
 // Clase PDF personalizada
 class PDF_Factura extends FPDF {
     function Header() {
@@ -58,13 +70,6 @@ class PDF_Factura extends FPDF {
 // Datos básicos
 $fecha = date("d/m/Y");
 $numero_factura = "A-" . str_pad(rand(1, 99999), 5, "0", STR_PAD_LEFT);
-
-// Productos simulados (pueden venir de DB)
-$productos = [
-    ['descripcion' => 'Artículo decorativo - Jarrón', 'cantidad' => 1, 'precio' => 45.50],
-    ['descripcion' => 'Juego de cubiertos (24 piezas)', 'cantidad' => 1, 'precio' => 89.99],
-    ['descripcion' => 'Mantel bordado 2x2m', 'cantidad' => 2, 'precio' => 32.50]
-];
 
 // Generar PDF
 $pdf = new PDF_Factura();
@@ -149,7 +154,7 @@ $pdf->MultiCell(0, 4, utf8_decode("- Esta factura sirve como garantía para cual
 - Los artículos personalizados no tienen devolución.
 - Gracias por su compra."), 0, 'L');
 
-// cerramos el pdf
+// Nombre del archivo
 $nombre_archivo = "Factura_" . ($facturaTipo === "consumidor_final" ? "ConsumidorFinal" : str_replace(' ', '_', $fullname));
 $pdf->Output('I', $nombre_archivo . '.pdf');
 ?>
