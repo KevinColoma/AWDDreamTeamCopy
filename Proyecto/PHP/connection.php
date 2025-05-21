@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
-$username = 'root'; // Cambia por tu usuario de MySQL
-$password = ''; // Cambia por tu contraseña de MySQL
+$username = 'root'; 
+$password = ''; 
 $database = 'variedades';
 
 try {
