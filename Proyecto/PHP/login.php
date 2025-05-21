@@ -1,6 +1,6 @@
 <?php
 
-include_once 'connection.php'; // Asegúrate que $conn sea una instancia de PDO
+include_once 'connection.php'; //instancia de PDO
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
