@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: ../HTML/nav.html');
             exit();
         } else {
-            header('Location: ../LoginFrm.php?error=1');
+            header('Location: ../Index.html?error=1');
             exit();
         }
     } else {
-        header('Location: ../LoginFrm.php?error=1');
+        header('Location: ../Index.html?error=1');
         exit();
     }
 }
